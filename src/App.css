@@ -1,0 +1,65 @@
+.App {
+  box-sizing: border-box;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./img/background-image-employees.jpeg);
+  opacity: 0.8;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+.ui .grid {
+  width: 100%;
+}
+.ui .container {
+  width: 100%;
+}
+.ui .card {
+  max-width: 200px;
+  height: 480px;
+}
+
+.ui .cards .card .image img {
+  object-fit: fill;
+  height: 300px;
+}
+
+.ui .cards {
+  margin-top: 10px;
+}
+
+.ui .placeholder {
+  min-height: 40rem;
+}
+
+.table-container {
+  margin: 20px 0;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+.info {
+  height: 20px;
+  padding: 5px;
+  color: black;
+}
+
+.add-item-field {
+  width: 450px;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
