@@ -1,22 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CargoCard from './CargoCard';
+import CargosCategoryList from './Categories/CargosCategoryList';
 
-export default function CargosList({ cargos, deleteCargo }) {
+export default function CargosList({ cargos, deleteCargo, cargosCategories, deleteCargoCategory }) {
   const emptyMessage = (
-    <p>There are no cargos yet in your collection.</p>
+    <p>На даний момент товару немає!</p>
   );
 
   const cargosList = (
     <div>
-      <select class="ui dropdown">
-        <option value="">Category</option>
-        <option value={cargos.category === 'Food'}>Food</option>
-        <option value={cargos.category === 'Fruits and Vegetables'}>Fruits and Vegetables</option>
-        <option value={cargos.category === 'Water'}>Water</option>
-        <option value={cargos.category === 'Alcohol'}>Alcohol</option>
-        <option value={cargos.category === 'Other'}>Other</option>
-      </select> 
+      {/* <CargosCategoryList cargosCategories={cargosCategories} deleteCargoCategory={deleteCargoCategory} /> */}
       <div className="ui four cards">
         {  cargos.map(cargo => <CargoCard cargo={cargo} key={cargo._id} deleteCargo={deleteCargo} />) }
       </div>

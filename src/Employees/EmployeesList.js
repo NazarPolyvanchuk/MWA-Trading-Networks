@@ -12,12 +12,12 @@ export default function EmployeesList({ employees, deleteEmployee }) {
     <table className="ui celled table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Surname</th>
+          <th>Ім'я</th>
+          <th>Прізвище</th>
           <th>Email</th>
-          <th>Department</th>
-          <th>Sallary</th>
-          <th>Actions</th>
+          <th>Підрозділ</th>
+          <th>Зарплата</th>
+          <th>Дії</th>
         </tr>
       </thead>
       <tbody>

@@ -17,14 +17,14 @@ class CargoFormPage extends React.Component {
     }
   }
 
-  saveCargo = ({ _id, title, cover, price, amount, category }) => {
+  saveCargo = ({ _id, title, cover, price, sellPrice, amount, category }) => {
     if (_id) {
-      return this.props.updateCargo({ _id, title, cover, price, amount, category })
+      return this.props.updateCargo({ _id, title, cover, price, sellPrice, amount, category })
         .then(
           () => { this.setState({ redirect: true })},
         );
     } else {
-      return this.props.saveCargo({ title, cover, price, amount, category })
+      return this.props.saveCargo({ title, cover, price, sellPrice, amount, category })
         .then(
           () => { this.setState({ redirect: true })},
         );

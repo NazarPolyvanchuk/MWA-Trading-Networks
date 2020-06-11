@@ -38,7 +38,7 @@ class EmployeeFormPage extends React.Component {
           <Redirect to="/employees" />
         ) : (
           <EmployeeForm
-            employee={this.props.Employee}
+            employee={this.props.employee}
             saveEmployee={this.saveEmployee}
           />
         )}

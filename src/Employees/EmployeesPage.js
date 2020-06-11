@@ -17,26 +17,26 @@ class EmployeesPage extends React.Component {
           <div className="ui secondary pointing menu">
             <NavLink className="item" activeClassName="active" exact to="/dashboard">
               <i className="home icon"></i>
-              Dashboard
+              Моніторинг та аналіз
             </NavLink>
             <NavLink className="item" activeClassName="active" exact to="/cargos">
               <i className="block layout icon"></i>
-              Cargos
+              Товари
             </NavLink>
             <NavLink className="item" activeClassName="active" exact to="/employees">
               <i className="smile icon"></i>
-              Employees
+              Працівники
             </NavLink>
             <div className="right menu">
               <NavLink className="ui item" activeClassName="active" exact to="/">
                 <i className="calendar icon"></i>
-                Logout
+                Вийти
               </NavLink>
             </div>
           </div>
           <div className="ui segment">
-            <h1 className="ui header">Employees List</h1>
-            <Link to="/employee/new" className="ui basic button green">Add New Employee</Link>
+            <h1 className="ui header">Список працівників</h1>
+            <Link to="/employee/new" className="ui basic button green">Додати нового працівника</Link>
             <EmployeesList employees={this.props.employees} deleteEmployee={this.props.deleteEmployee}/>
           </div>
       </div>

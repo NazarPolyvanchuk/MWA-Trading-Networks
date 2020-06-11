@@ -4,24 +4,26 @@ import classnames from 'classnames';
 
 class CargoForm extends React.Component {
   state = {
-    _id: this.props.Cargo ? this.props.Cargo._id : null,
-    title: this.props.Cargo ? this.props.Cargo.title : '',
-    cover: this.props.Cargo ? this.props.Cargo.cover : 'https://placehold.it/200?text=No+Image',
-    price: this.props.Cargo ? this.props.Cargo.price : '0$',
-    amount: this.props.Cargo ? this.props.Cargo.amount : 0,
-    category: this.props.Cargo ? this.props.Cargo.category : '',
+    _id: this.props.cargo ? this.props.cargo._id : null,
+    title: this.props.cargo ? this.props.cargo.title : '',
+    cover: this.props.cargo ? this.props.cargo.cover : 'https://placehold.it/200?text=No+Image',
+    price: this.props.cargo ? this.props.cargo.price : '',
+    sellPrice: this.props.cargo ? this.props.cargo.sellPrice : '',
+    amount: this.props.cargo ? this.props.cargo.amount : '',
+    category: this.props.cargo ? this.props.cargo.category : '',
     errors: {},
     loading: false
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      _id: nextProps.Cargo._id,
-      title: nextProps.Cargo.title,
-      cover: nextProps.Cargo.cover,
-      price: nextProps.Cargo.price,
-      amount: nextProps.Cargo.amount,
-      category: nextProps.Cargo.category
+      _id: nextProps.cargo._id,
+      title: nextProps.cargo.title,
+      cover: nextProps.cargo.cover,
+      price: nextProps.cargo.price,
+      sellPrice: nextProps.sellPrice,
+      amount: nextProps.cargo.amount,
+      category: nextProps.cargo.category
     });
   }
 
@@ -42,18 +44,19 @@ class CargoForm extends React.Component {
     e.preventDefault();
 
     let errors = {}
-    if (this.state.title === '') errors.title = "Cant't be empty";
-    if (this.state.cover === '') errors.cover = "Cant't be empty";
-    if (this.state.price === '') errors.price = "Cant't be empty";
-    if (this.state.amount === '') errors.amount = "Cant't be empty";
-    if (this.state.category === '') errors.category = "Cant't be empty";
+    if (this.state.title === '') errors.title = "Будь ласка заповніть поле";
+    if (this.state.cover === '') errors.cover = "Будь ласка заповніть поле";
+    if (this.state.price === '') errors.price = "Будь ласка заповніть поле";
+    if (this.state.sellPrice === '') errors.sellPrice = "Будь ласка заповніть поле";
+    if (this.state.amount === '') errors.amount = "Будь ласка заповніть поле";
+    if (this.state.category === '') errors.category = "Будь ласка заповніть поле";
     this.setState({ errors });
     const isValid = Object.keys(errors).length === 0;
 
     if (isValid) {
-      const { _id, title, cover, price, amount, category } = this.state;
+      const { _id, title, cover, price, sellPrice, amount, category } = this.state;
       this.setState({ loading: true });
-      this.props.saveCargo({ _id, title, cover, price, amount, category })
+      this.props.saveCargo({ _id, title, cover, price, sellPrice, amount, category })
         .catch((err) => err.response.json().then(({ errors }) => this.setState({ errors, loading: false })));
     }
   }
@@ -64,23 +67,23 @@ class CargoForm extends React.Component {
         <div className="ui secondary pointing menu">
           <NavLink className="item" activeClassName="active" exact to="/dashboard">
             <i className="home icon"></i>
-            Dashboard
+            Головна сторінка
           </NavLink>
           <NavLink className="item" activeClassName="active" exact to="/cargos">
             <i className="block layout icon"></i>
-            Cargos
+            Товари
           </NavLink>
           <NavLink className="item" activeClassName="active" exact to="/employees">
             <i className="smile icon"></i>
-            Employees
+            Працівники
           </NavLink>
           <NavLink className="item" activeClassName="active" exact to="/cargo/new">
-            New Cargo
+            Додавання нового товару
           </NavLink>
           <div className="right menu">
             <NavLink className="ui item" activeClassName="active" exact to="/">
               <i className="calendar icon"></i>
-              Logout
+              Вийти
             </NavLink>
           </div>
         </div>
@@ -88,10 +91,10 @@ class CargoForm extends React.Component {
           <form className={classnames("ui form", { loading: this.state.loading })} onSubmit={this.handleSubmit}>
 
             <div>
-              { this.props.Cargo ? (
-                <h1>Edit Cargo</h1>
+              { this.props.cargo ? (
+                <h1>Редагування товару</h1>
               ) : (
-                <h1>Add new Cargo</h1>
+                <h1>Додати новий товар</h1>
               )}
             </div>
 
@@ -100,7 +103,7 @@ class CargoForm extends React.Component {
             }
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.title })}>
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">Назва</label>
               <input
                 name="title"
                 value={this.state.title}
@@ -111,7 +114,7 @@ class CargoForm extends React.Component {
             </div>
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.cover })}>
-              <label htmlFor="cover">Cover URL</label>
+              <label htmlFor="cover">Адреса зображення</label>
               <input
                 name="cover"
                 value={this.state.cover}
@@ -122,7 +125,7 @@ class CargoForm extends React.Component {
             </div>
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.price })}>
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price">Ціна закупки</label>
               <input
                 name="price"
                 type='number'
@@ -133,8 +136,20 @@ class CargoForm extends React.Component {
               <span>{this.state.errors.price}</span>
             </div>
 
+            <div className={classnames('field add-item-field', { error: !!this.state.errors.sellPrice })}>
+              <label htmlFor="sellPrice">Ціна продажу</label>
+              <input
+                name="sellPrice"
+                type='number'
+                value={this.state.sellPrice}
+                onChange={this.handleChange}
+                id="sellPrice"
+              />
+              <span>{this.state.errors.sellPrice}</span>
+            </div>
+
             <div className={classnames('field add-item-field', { error: !!this.state.errors.amount })}>
-              <label htmlFor="amount">Amount</label>
+              <label htmlFor="amount">Кількість</label>
               <input
                 name="amount"
                 type='number'
@@ -146,7 +161,7 @@ class CargoForm extends React.Component {
             </div>
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.category })}>
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">Категорія</label>
               <input
                 name="category"
                 value={this.state.category}
@@ -163,7 +178,7 @@ class CargoForm extends React.Component {
             </div>
 
             <div className="field">
-              <button className="ui primary button">Save</button>
+              <button className="ui primary button">Зберегти</button>
             </div>
           </form>
         </div>

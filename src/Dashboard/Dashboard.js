@@ -16,26 +16,64 @@ class Dashboard extends React.Component {
           <div className="ui secondary pointing menu">
             <NavLink className="item" activeClassName="active" exact to="/dashboard">
               <i className="home icon"></i>
-              Dashboard
+              Моніторинг та аналіз
             </NavLink>
             <NavLink className="item" activeClassName="active" exact to="/cargos">
               <i className="block layout icon"></i>
-              Cargos
+              Товари
             </NavLink>
             <NavLink className="item" activeClassName="active" exact to="/employees">
               <i className="smile icon"></i>
-              Employees
+              Працівники
             </NavLink>
             <div className="right menu">
               <NavLink className="ui item" activeClassName="active" exact to="/">
                 <i className="calendar icon"></i>
-                Logout
+                Вийти
               </NavLink>
             </div>
           </div>
           <div className="ui segment">
-            <h1 className="ui header">Dashboard</h1>
+            <h1 className="ui header">Моніторинг та аналіз</h1>
             <div className="ui content">
+              <div className="ui four cards">
+                <div className="ui card">
+                  <div className="content">
+                    <div className="header">Продано товарів</div>
+                    <div className="meta">
+                      <span>протягом місяця</span>
+                    </div>
+                    <p>68</p>
+                  </div>
+                </div>
+                <div className="ui card">
+                  <div className="content">
+                    <div className="header">Закуплено товарів</div>
+                    <div className="meta">
+                      <span>протягом місяця</span>
+                    </div>
+                    <p>35</p>
+                  </div>
+                </div>
+                <div className="ui card">
+                  <div className="content">
+                    <div className="header">Витрачено коштів</div>
+                    <div className="meta">
+                      <span>протягом місяця</span>
+                    </div>
+                    <p>56000 ГРН</p>
+                  </div>
+                </div>
+                <div className="ui card">
+                  <div className="content">
+                    <div className="header">Виручка</div>
+                    <div className="meta">
+                      <span>протягом місяця</span>
+                    </div>
+                    <p>89000 ГРН</p>
+                  </div>
+                </div>
+              </div>
               <AreaChart />
               <ColumnChart />
               <PieChart />

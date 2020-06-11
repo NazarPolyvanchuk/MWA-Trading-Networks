@@ -1,5 +1,7 @@
 export const SET_CARGOS = 'SET_CARGOS';
 export const ADD_CARGO = 'ADD_CARGO';
+export const ADD_CARGO_CATEGORY = "ADD_CARGO_CATEGORY";
+export const CARGO_CATEGORY_DELETED = "CARGO_CATEGORY_DELETED";
 export const CARGO_FETCHED = 'CARGO_FETCHED';
 export const CARGO_UPDATED = 'CARGO_UPDATED';
 export const CARGO_DELETED = 'CARGO_DELETED';
@@ -44,6 +46,13 @@ export function addCargo(cargo) {
   }
 }
 
+export function addCargoCategory(category) {
+  return {
+    type: ADD_CARGO_CATEGORY,
+    category
+  }
+}
+
 export function cargoFetched(cargo) {
   return {
     type: CARGO_FETCHED,
@@ -65,6 +74,13 @@ export function cargoDeleted(cargoId) {
   }
 }
 
+export function cargoCategoryDeleted(categoryId) {
+  return {
+    type: CARGO_CATEGORY_DELETED,
+    categoryId
+  }
+}
+
 export function saveCargo(data) {
   return dispatch => {
     return fetch('/api/cargos', {
@@ -76,6 +92,20 @@ export function saveCargo(data) {
     })
     .then(handleResponse)
     .then(data => dispatch(addCargo(data.cargo)));
+  }
+}
+
+export function saveCargoCategory(data) {
+  return dispatch => {
+    return fetch('/api/cargos', {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(handleResponse)
+    .then(data => dispatch(addCargoCategory(data.cargoCategory)));
   }
 }
 
@@ -106,15 +136,15 @@ export function deleteCargo(id) {
   }
 }
 
-export function sellCargo(amount) {
+export function sellCargo(data) {
   return dispatch => {
-    return fetch(`/api/cargos`, {
-      method: "DELETE",
+    return fetch(`/api/sell-cargos`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       }
     })
     .then(handleResponse)
-    .then(data => dispatch(cargoDeleted(amount)));
+    .then(data => dispatch(cargoUpdated(data.amount)));
   }
 }

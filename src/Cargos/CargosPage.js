@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
 import CargosList from './CargosList';
 import { connect } from 'react-redux';
-import { fetchCargos, deleteCargo, updateCargo } from '../actions/cargo/actions';
+import { fetchCargos, deleteCargo, updateCargo, deleteCargoCategory} from '../actions/cargo/actions';
 
 class CargosPage extends React.Component {
   componentDidMount() {
@@ -16,27 +16,34 @@ class CargosPage extends React.Component {
         <div className="ui secondary pointing menu">
           <NavLink className="item" activeClassName="active" exact to="/dashboard">
             <i className="home icon"></i>
-            Dashboard
+            Моніторинг та аналіз
           </NavLink>
           <NavLink className="item" activeClassName="active" exact to="/cargos">
             <i className="block layout icon"></i>
-            Cargos
+            Товари
           </NavLink>
           <NavLink className="item" activeClassName="active" exact to="/employees">
             <i className="smile icon"></i>
-            Employees
+            Працівники
           </NavLink>
           <div className="right menu">
             <NavLink className="ui item" activeClassName="active" exact to="/">
               <i className="calendar icon"></i>
-              Logout
+              Вийти
             </NavLink>
           </div>
         </div>
         <div className="ui segment">
           <h1 className="ui header">Cargo List</h1>
-          <Link to="/cargo/new" className="ui basic button green">Add New Cargo</Link>
-          <CargosList cargos={this.props.cargos} deleteCargo={this.props.deleteCargo} updateCargo={this.props.updateCargo} />
+          <Link to="/cargo/new" className="ui basic button green">Додати новий товар</Link>
+          <Link to="/category/new" className="ui basic button green">Додати нову категорію</Link>
+          <CargosList 
+            cargos={this.props.cargos} 
+            cargosCategories={this.props.cargosCategories}
+            deleteCargoCategory={this.props.deleteCargoCategory} 
+            deleteCargo={this.props.deleteCargo} 
+            updateCargo={this.props.updateCargo} 
+          />
         </div>
       </div>
     );
@@ -51,8 +58,9 @@ CargosPage.propTypes = {
 
 function mapsStateToProps(state) {
   return {
-    cargos: state.cargos
+    cargos: state.cargos,
+    cargosCategories: state.cargosCategories
   }
 }
 
-export default connect(mapsStateToProps, { fetchCargos, deleteCargo })(CargosPage);
+export default connect(mapsStateToProps, { fetchCargos, deleteCargo, updateCargo })(CargosPage);

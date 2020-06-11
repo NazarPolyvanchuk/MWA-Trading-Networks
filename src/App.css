@@ -17,26 +17,60 @@
 .ui .container {
   width: 100%;
 }
+
+/* cards */
 .ui .card {
   max-width: 200px;
-  height: 480px;
 }
 
 .ui .cards .card .image img {
   object-fit: fill;
-  height: 300px;
+  height: 260px;
+}
+
+.ui .cards .card .content {
+  min-height: 160px;
 }
 
 .ui .cards {
   margin-top: 10px;
 }
 
+
+
 .ui .placeholder {
   min-height: 40rem;
 }
 
+/* table */
 .table-container {
   margin: 20px 0;
+}
+
+
+/* main page */
+.ui .center .aligned .header {
+  width: 100%;
+  background-image: url(./img/background-image-employees.jpeg);
+  height: 300px;
+}
+.ui .items {
+  width: 60%;
+  margin: 0 auto;
+}
+.ui .items .item {
+  margin: 40px 0;
+}
+.text-centered {
+  margin: auto 0;
+  width: 370px;
+  text-align: center;
+}
+
+.ui .items .item .image .custom {
+  width: 150px;
+  height: 150px;
+  background-size: contain;
 }
 
 .App-header {
@@ -51,8 +85,17 @@
   color: black;
 }
 
+.image img {
+  width: 100px;
+  height: 100px;
+  object-fit: fill;
+}
+
 .add-item-field {
   width: 450px;
+}
+.add-sell-field {
+  width: 120px;
 }
 
 .App-intro {

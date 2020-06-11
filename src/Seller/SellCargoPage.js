@@ -14,19 +14,19 @@ class SellCargosPage extends React.Component {
     return (
       <div className="ui container">
         <div className="ui secondary pointing menu">
-          <NavLink className="item" activeClassName="active" exact to="/cargos">
+          <NavLink className="item" activeClassName="active" exact to="/sell-cargos">
             <i className="block layout icon"></i>
-            Cargos
+            Товари
           </NavLink>
           <div className="right menu">
             <NavLink className="ui item" activeClassName="active" exact to="/">
               <i className="calendar icon"></i>
-              Logout
+              Вийти
             </NavLink>
           </div>
         </div>
         <div className="ui segment">
-          <h1 className="ui header">Cargo List for Sale</h1>
+          <h1 className="ui header">Список товарів</h1>
           <SellCargosList cargos={this.props.cargos} sellCargo={this.props.sellCargo} />
         </div>
       </div>

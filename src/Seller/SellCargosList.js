@@ -8,9 +8,23 @@ export default function SellCargosList({ cargos, sellCargo }) {
   );
 
   const cargosList = (
-    <div className="ui four cards">
-      {  cargos.map(cargo => <SellCargoCard cargo={cargo} key={cargo._id} sellCargo={sellCargo} />) }
-    </div>
+    <div className="table-container">
+      <table className="ui celled table">
+        <thead>
+          <tr>
+            <th>Фото</th>
+            <th>Назва товару</th>
+            <th>Ціна товару</th>
+            <th>Кількість товару</th>
+            <th>Категорія товару</th>
+            <th>Дії</th>
+          </tr>
+       </thead>
+       <tbody>
+        {  cargos.map(cargo => <SellCargoCard cargo={cargo} key={cargo._id} sellCargo={sellCargo} />) }
+      </tbody>
+    </table>
+  </div>
   );
 
   return (

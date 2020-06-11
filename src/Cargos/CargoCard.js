@@ -11,15 +11,16 @@ export default function CargoCard({ cargo, deleteCargo }) {
 
       <div className="content">
         <div className="header">{cargo.title}</div>
-        <div className="info">Price: {cargo.price}</div>
-        <div className="info">Amount: {cargo.amount}</div>
-        <div className="info">Category: {cargo.category}</div>
+        <div className="info">Ціна закупки: {`${cargo.price} ГРН`}</div>
+        <div className="info">Ціна продажу: {`${cargo.sellPrice} ГРН`}</div>
+        <div className="info">Кількість: {`${cargo.amount} шт`}</div>
+        <div className="info">Категорія: {cargo.category}</div>
       </div>
 
       <div className="extra content">
         <div className="ui two buttons">
-          <Link to={`/cargo/${cargo._id}`} className="ui basic button green">Edit</Link>
-          <div className="ui basic button red" onClick={() => deleteCargo(cargo._id)}>Delete</div>
+          <Link to={`/cargo/${cargo._id}`} className="ui basic button green">Редагувати</Link>
+          <div className="ui basic button red" onClick={() => deleteCargo(cargo._id)}>Видалити</div>
         </div>
       </div>
     </div>

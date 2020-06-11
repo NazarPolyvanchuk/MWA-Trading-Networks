@@ -4,24 +4,24 @@ import classnames from 'classnames';
 
 class EmployeeForm extends React.Component {
   state = {
-    _id: this.props.Employee ? this.props.Employee._id : null,
-    name: this.props.Employee ? this.props.Employee.name : '',
-    surname: this.props.Employee ? this.props.Employee.surname : '',
-    email: this.props.Employee ? this.props.Employee.email : '',
-    category: this.props.Employee ? this.props.Employee.category : '',
-    sallary: this.props.Employee ? this.props.Employee.sallary : 0,
+    _id: this.props.employee ? this.props.employee._id : null,
+    name: this.props.employee ? this.props.employee.name : '',
+    surname: this.props.employee ? this.props.employee.surname : '',
+    email: this.props.employee ? this.props.employee.email : '',
+    category: this.props.employee ? this.props.employee.category : '',
+    sallary: this.props.employee ? this.props.employee.sallary : 0,
     errors: {},
     loading: false
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      _id: nextProps.Employee._id,
-      name: nextProps.Employee.name,
-      surname: nextProps.Employee.surname,
-      email: nextProps.Employee.email,
-      category: nextProps.Employee.category,
-      sallary: nextProps.Employee.sallary,
+      _id: nextProps.employee._id,
+      name: nextProps.employee.name,
+      surname: nextProps.employee.surname,
+      email: nextProps.employee.email,
+      category: nextProps.employee.category,
+      sallary: nextProps.employee.sallary,
     });
   }
 
@@ -42,11 +42,11 @@ class EmployeeForm extends React.Component {
     e.preventDefault();
 
     let errors = {}
-    if (this.state.name === '') errors.name = "Cant't be empty";
-    if (this.state.surname === '') errors.surname = "Cant't be empty";
-    if (this.state.email === '') errors.email = "Cant't be empty";
-    if (this.state.category === '') errors.category = "Cant't be empty";
-    if (this.state.sallary === '') errors.sallary = "Cant't be empty";
+    if (this.state.name === '') errors.name = "Будь ласка заповніть поле";
+    if (this.state.surname === '') errors.surname = "Будь ласка заповніть поле";
+    if (this.state.email === '') errors.email = "Будь ласка заповніть поле";
+    if (this.state.category === '') errors.category = "Будь ласка заповніть поле";
+    if (this.state.sallary === '') errors.sallary = "Будь ласка заповніть поле";
     this.setState({ errors });
     const isValid = Object.keys(errors).length === 0;
 
@@ -64,23 +64,23 @@ class EmployeeForm extends React.Component {
         <div className="ui secondary pointing menu">
           <NavLink className="item" activeClassName="active" exact to="/dashboard">
             <i className="home icon"></i>
-            Dashboard
+            Головна сторінка
           </NavLink>
           <NavLink className="item" activeClassName="active" exact to="/cargos">
             <i className="block layout icon"></i>
-            Cargos
+            Товари
           </NavLink>
           <NavLink className="item" activeClassName="active" exact to="/employees">
             <i className="smile icon"></i>
-            Employees
+            Працівники
           </NavLink>
           <div className="item" activeClassName="active">
-            New Employee
+            Додавання працівника
           </div>
           <div className="right menu">
             <NavLink className="ui item" activeClassName="active" exact to="/">
               <i className="calendar icon"></i>
-              Logout
+              Вийти
             </NavLink>
           </div>
         </div>
@@ -88,9 +88,9 @@ class EmployeeForm extends React.Component {
           <form className={classnames("ui form", { loading: this.state.loading })} onSubmit={this.handleSubmit}>
             <div>
               { this.props.employee ? (
-                <h1>Edit Employee</h1>
+                <h1>Редагувати працівника</h1>
               ) : (
-                <h1>Add new Employee</h1>
+                <h1>Додати нового працівника</h1>
               )}
             </div>
 
@@ -99,7 +99,7 @@ class EmployeeForm extends React.Component {
             }
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.name })}>
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Ім'я</label>
               <input
                 name="name"
                 value={this.state.name}
@@ -110,7 +110,7 @@ class EmployeeForm extends React.Component {
             </div>
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.surname })}>
-              <label htmlFor="surname">Surname</label>
+              <label htmlFor="surname">Прізвище</label>
               <input
                 name="surname"
                 value={this.state.surname}
@@ -121,7 +121,7 @@ class EmployeeForm extends React.Component {
             </div>
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.email })}>
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Електронна пошта</label>
               <input
                 name="email"
                 type='email'
@@ -133,7 +133,7 @@ class EmployeeForm extends React.Component {
             </div>
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.category })}>
-              <label htmlFor="category">Category</label>
+              <label htmlFor="category">Підрозділ</label>
               <input
                 name="category"
                 value={this.state.category}
@@ -144,7 +144,7 @@ class EmployeeForm extends React.Component {
             </div>
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.sallary })}>
-              <label htmlFor="sallary">Sallary</label>
+              <label htmlFor="sallary">Заробітня плата</label>
               <input
                 name="sallary"
                 type='number'
@@ -156,7 +156,7 @@ class EmployeeForm extends React.Component {
             </div>
 
             <div className="field">
-              <button className="ui primary button">Save</button>
+              <button className="ui primary button">Зберегти</button>
             </div>
           </form>
         </div>
