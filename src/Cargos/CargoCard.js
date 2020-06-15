@@ -14,7 +14,7 @@ export default function CargoCard({ cargo, deleteCargo }) {
         <div className="info">Ціна закупки: {`${cargo.price} ГРН`}</div>
         <div className="info">Ціна продажу: {`${cargo.sellPrice} ГРН`}</div>
         <div className="info">Кількість: {`${cargo.amount} шт`}</div>
-        <div className="info">Категорія: {cargo.category}</div>
+        <div className="info">Категорія: {cargo.category.name}</div>
       </div>
 
       <div className="extra content">

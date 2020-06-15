@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
 import EmployeesList from './EmployeesList';
 import { connect } from 'react-redux';
-import { fetchEmployees, deleteEmployee } from '../actions/employee/actions';
-import EmployeeFormPage from './EmployeeFormPage';
+import { fetchEmployees, deleteEmployee, updateEmployee } from '../actions/employee/actions';
+import { fetchCategories } from '../actions/category/actions';
 
 class EmployeesPage extends React.Component {
   componentDidMount() {
     this.props.fetchEmployees();
+    this.props.fetchCategories();
   }
 
   render() {
@@ -37,7 +38,13 @@ class EmployeesPage extends React.Component {
           <div className="ui segment">
             <h1 className="ui header">Список працівників</h1>
             <Link to="/employee/new" className="ui basic button green">Додати нового працівника</Link>
-            <EmployeesList employees={this.props.employees} deleteEmployee={this.props.deleteEmployee}/>
+            <Link to="/categories" className="ui basic button green">Додати новий підрозділ</Link>
+            <EmployeesList 
+              employees={this.props.employees}
+              categories={this.props.categories} 
+              deleteEmployee={this.props.deleteEmployee}
+              updateEmployee={this.props.updateEmployee} 
+            />
           </div>
       </div>
     );
@@ -52,8 +59,9 @@ EmployeesPage.propTypes = {
 
 function mapsStateToProps(state) {
   return {
-    employees: state.employees
+    employees: state.employees,
+    categories: state.categories
   }
 }
 
-export default connect(mapsStateToProps, { fetchEmployees, deleteEmployee })(EmployeesPage);
+export default connect(mapsStateToProps, { fetchCategories, fetchEmployees, deleteEmployee, updateEmployee })(EmployeesPage);

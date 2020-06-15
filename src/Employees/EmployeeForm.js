@@ -1,6 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+
+import { fetchCategories } from '../actions/category/actions';
 
 class EmployeeForm extends React.Component {
   state = {
@@ -14,15 +17,24 @@ class EmployeeForm extends React.Component {
     loading: false
   }
 
+  componentDidMount() {
+    const { fetchCategories } = this.props;
+    fetchCategories();
+  }
+
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      _id: nextProps.employee._id,
-      name: nextProps.employee.name,
-      surname: nextProps.employee.surname,
-      email: nextProps.employee.email,
-      category: nextProps.employee.category,
-      sallary: nextProps.employee.sallary,
-    });
+
+    const { employee } = nextProps;
+    if (employee) {
+      this.setState({
+        _id: employee._id,
+        name: employee.name,
+        surname: employee.surname,
+        email: employee.email,
+        category: employee.category,
+        sallary: employee.sallary,
+      });
+    }
   }
 
   handleChange = (e) => {
@@ -38,6 +50,12 @@ class EmployeeForm extends React.Component {
     }
   }
 
+  handleChangeCategory = (event) => {
+    this.setState({
+      category: JSON.parse(event.target.value),
+    });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -45,7 +63,7 @@ class EmployeeForm extends React.Component {
     if (this.state.name === '') errors.name = "Будь ласка заповніть поле";
     if (this.state.surname === '') errors.surname = "Будь ласка заповніть поле";
     if (this.state.email === '') errors.email = "Будь ласка заповніть поле";
-    if (this.state.category === '') errors.category = "Будь ласка заповніть поле";
+    if (this.state.category === '') errors.category = "Будь ласка виберіть підрозділ";
     if (this.state.sallary === '') errors.sallary = "Будь ласка заповніть поле";
     this.setState({ errors });
     const isValid = Object.keys(errors).length === 0;
@@ -59,6 +77,8 @@ class EmployeeForm extends React.Component {
   }
 
   render() {
+    const { categories } = this.props;
+
     return (
       <div className="ui container">
         <div className="ui secondary pointing menu">
@@ -132,16 +152,15 @@ class EmployeeForm extends React.Component {
               <span>{this.state.errors.email}</span>
             </div>
 
-            <div className={classnames('field add-item-field', { error: !!this.state.errors.category })}>
-              <label htmlFor="category">Підрозділ</label>
-              <input
-                name="category"
-                value={this.state.category}
-                onChange={this.handleChange}
-                id="category"
-              />
-              <span>{this.state.errors.category}</span>
+            <div className="field add-item-field">
+              <label>Підрозділ</label>
+              <select onChange={this.handleChangeCategory} value={JSON.stringify(this.state.category)}>
+                {categories.map(item => (
+                  <option key={item._id} value={JSON.stringify(item)}>{item.name}</option>
+                ))}
+              </select>
             </div>
+
 
             <div className={classnames('field add-item-field', { error: !!this.state.errors.sallary })}>
               <label htmlFor="sallary">Заробітня плата</label>
@@ -165,4 +184,14 @@ class EmployeeForm extends React.Component {
   }
 }
 
-export default EmployeeForm;
+const mapStateToProps = state => ({
+  categories: state.categories,
+});
+
+const mapDispatchToProps = {
+  fetchCategories,
+};
+
+const employeeFormWrapper = connect(mapStateToProps, mapDispatchToProps);
+
+export default employeeFormWrapper(EmployeeForm);

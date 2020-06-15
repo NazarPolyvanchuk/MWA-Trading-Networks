@@ -7,7 +7,7 @@ class MainPage extends React.Component {
   render() {
     return (
       <div className="ui container">
-        <div className="ui center aligned header">Система моніторингу та аналізу роботи торгової мережі</div>
+        <div className="ui center aligned header">СИСТЕМА МОНІТОРИНГУ ТА АНАЛІЗУ РОБОТИ ТОРГОВОЇ МЕРЕЖІ</div>
         <div className="ui center items">
           <div className="item">
             <div className="image">

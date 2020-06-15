@@ -7,9 +7,6 @@ import ColumnChart from '../views/Column Chart';
 import PieChart from '../views/Pie Chart';
 
 class Dashboard extends React.Component {
-//   componentDidMount() {
-//   }
-
   render() {
     return (
       <div className="ui container">
@@ -43,7 +40,7 @@ class Dashboard extends React.Component {
                     <div className="meta">
                       <span>протягом місяця</span>
                     </div>
-                    <p>68</p>
+                    <p className="data-count">68 шт.</p>
                   </div>
                 </div>
                 <div className="ui card">
@@ -52,7 +49,7 @@ class Dashboard extends React.Component {
                     <div className="meta">
                       <span>протягом місяця</span>
                     </div>
-                    <p>35</p>
+                    <p className="data-count">35 шт.</p>
                   </div>
                 </div>
                 <div className="ui card">
@@ -61,7 +58,7 @@ class Dashboard extends React.Component {
                     <div className="meta">
                       <span>протягом місяця</span>
                     </div>
-                    <p>56000 ГРН</p>
+                    <p className="data-count">56000 ГРН</p>
                   </div>
                 </div>
                 <div className="ui card">
@@ -70,7 +67,7 @@ class Dashboard extends React.Component {
                     <div className="meta">
                       <span>протягом місяця</span>
                     </div>
-                    <p>89000 ГРН</p>
+                    <p className="data-count">89000 ГРН</p>
                   </div>
                 </div>
               </div>

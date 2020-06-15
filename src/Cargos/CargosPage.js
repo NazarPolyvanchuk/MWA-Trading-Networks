@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
-import CargosList from './CargosList';
 import { connect } from 'react-redux';
-import { fetchCargos, deleteCargo, updateCargo, deleteCargoCategory} from '../actions/cargo/actions';
+
+import CargosList from './CargosList';
+import { fetchCargos, deleteCargo, updateCargo } from '../actions/cargo/actions';
+import { fetchCategories } from '../actions/category/actions';
 
 class CargosPage extends React.Component {
   componentDidMount() {
     this.props.fetchCargos();
+    this.props.fetchCategories();
   }
 
   render() {
@@ -34,13 +37,12 @@ class CargosPage extends React.Component {
           </div>
         </div>
         <div className="ui segment">
-          <h1 className="ui header">Cargo List</h1>
+          <h1 className="ui header">Список товарів</h1>
           <Link to="/cargo/new" className="ui basic button green">Додати новий товар</Link>
-          <Link to="/category/new" className="ui basic button green">Додати нову категорію</Link>
+          <Link to="/categories" className="ui basic button green">Додати нову категорію</Link>
           <CargosList 
-            cargos={this.props.cargos} 
-            cargosCategories={this.props.cargosCategories}
-            deleteCargoCategory={this.props.deleteCargoCategory} 
+            cargos={this.props.cargos}
+            categories={this.props.categories} 
             deleteCargo={this.props.deleteCargo} 
             updateCargo={this.props.updateCargo} 
           />
@@ -59,8 +61,8 @@ CargosPage.propTypes = {
 function mapsStateToProps(state) {
   return {
     cargos: state.cargos,
-    cargosCategories: state.cargosCategories
+    categories: state.categories
   }
 }
 
-export default connect(mapsStateToProps, { fetchCargos, deleteCargo, updateCargo })(CargosPage);
+export default connect(mapsStateToProps, { fetchCategories, fetchCargos, deleteCargo, updateCargo })(CargosPage);

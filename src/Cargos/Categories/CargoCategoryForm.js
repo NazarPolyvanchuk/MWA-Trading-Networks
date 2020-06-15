@@ -1,19 +1,23 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import classnames from 'classnames';
+
+import { saveCategory } from '../../actions/category/actions';
 
 class CargoCategoryForm extends React.Component {
   state = {
-    _id: this.props.cargoCategory ? this.props.cargoCategory._id : null,
-    categoryName: this.props.cargoCategory ? this.props.cargoCategory.categoryName : '',
+    _id: this.props.category ? this.props.category._id : null,
+    name: this.props.category ? this.props.category.name : '',
     errors: {},
     loading: false
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      _id: nextProps.cargoCategory._id,
-      categoryName: nextProps.cargoCategory.categoryName,
+      _id: nextProps.category._id,
+      name: nextProps.category.name,
     });
   }
 
@@ -34,14 +38,15 @@ class CargoCategoryForm extends React.Component {
     e.preventDefault();
 
     let errors = {}
-    if (this.state.categoryName === '') errors.categoryName = "Будь ласка заповніть поле";
+    if (this.state.name === '') errors.name = "Будь ласка заповніть поле";
     const isValid = Object.keys(errors).length === 0;
 
     if (isValid) {
-      const { _id, categoryName } = this.state;
+      const { _id, name } = this.state;
       this.setState({ loading: true });
-      this.props.saveCargoCategory({ _id, categoryName })
-        .catch((err) => err.response.json().then(({ errors }) => this.setState({ errors, loading: false })));
+      this.props.saveCategory({ _id, name });
+      <Redirect to="/cargos" />
+        // .catch((err) => err.response.json().then(({ errors }) => this.setState({ errors, loading: false }), <Redirect to="/cargos" /> ));
     }
   }
 
@@ -79,15 +84,15 @@ class CargoCategoryForm extends React.Component {
               <div className="ui negative message"><p>{this.state.errors.global}</p></div>
             }
 
-            <div className={classnames('field add-item-field', { error: !!this.state.errors.categoryName })}>
-              <label htmlFor="categoryName">Назва</label>
+            <div className={classnames('field add-item-field', { error: !!this.state.errors.name })}>
+              <label htmlFor="name">Назва категорії</label>
               <input
-                name="categoryName"
-                value={this.state.categoryName}
+                name="name"
+                value={this.state.name}
                 onChange={this.handleChange}
-                id="categoryName"
+                id="name"
               />
-              <span>{this.state.errors.categoryName}</span>
+              <span>{this.state.errors.name}</span>
             </div>
 
             <div className="field">
@@ -100,4 +105,16 @@ class CargoCategoryForm extends React.Component {
   }
 }
 
-export default CargoCategoryForm;
+function mapStateToProps(state, props) {
+  const { match } = props;
+
+  if (match.params._id) {
+    return {
+      category: state.categories.find(item => item._id === match.params._id)
+    }
+  }
+
+  return { category: null };
+}
+
+export default connect(mapStateToProps, { saveCategory })(CargoCategoryForm);

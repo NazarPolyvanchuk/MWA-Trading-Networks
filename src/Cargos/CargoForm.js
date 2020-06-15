@@ -1,8 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+
+import { fetchCategories } from '../actions/category/actions';
 
 class CargoForm extends React.Component {
+
   state = {
     _id: this.props.cargo ? this.props.cargo._id : null,
     title: this.props.cargo ? this.props.cargo.title : '',
@@ -15,16 +19,25 @@ class CargoForm extends React.Component {
     loading: false
   }
 
+  componentDidMount() {
+    const { fetchCategories } = this.props;
+    fetchCategories();
+  }
+
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      _id: nextProps.cargo._id,
-      title: nextProps.cargo.title,
-      cover: nextProps.cargo.cover,
-      price: nextProps.cargo.price,
-      sellPrice: nextProps.sellPrice,
-      amount: nextProps.cargo.amount,
-      category: nextProps.cargo.category
-    });
+
+    const { cargo } = nextProps;
+    if (cargo) {
+      this.setState({
+        _id: cargo._id,
+        title: cargo.title,
+        cover: cargo.cover,
+        price: cargo.price,
+        sellPrice: cargo.sellPrice,
+        amount: cargo.amount,
+        category: cargo.category
+      });
+    }
   }
 
   handleChange = (e) => {
@@ -40,6 +53,12 @@ class CargoForm extends React.Component {
     }
   }
 
+  handleChangeCategory = (event) => {
+    this.setState({
+      category: JSON.parse(event.target.value),
+    });
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -49,7 +68,7 @@ class CargoForm extends React.Component {
     if (this.state.price === '') errors.price = "Будь ласка заповніть поле";
     if (this.state.sellPrice === '') errors.sellPrice = "Будь ласка заповніть поле";
     if (this.state.amount === '') errors.amount = "Будь ласка заповніть поле";
-    if (this.state.category === '') errors.category = "Будь ласка заповніть поле";
+    if (this.state.category === '') errors.category = "Будь виберіть категорію";
     this.setState({ errors });
     const isValid = Object.keys(errors).length === 0;
 
@@ -62,6 +81,8 @@ class CargoForm extends React.Component {
   }
 
   render() {
+    const { categories } = this.props;
+
     return (
       <div className="ui container">
         <div className="ui secondary pointing menu">
@@ -160,15 +181,13 @@ class CargoForm extends React.Component {
               <span>{this.state.errors.amount}</span>
             </div>
 
-            <div className={classnames('field add-item-field', { error: !!this.state.errors.category })}>
-              <label htmlFor="category">Категорія</label>
-              <input
-                name="category"
-                value={this.state.category}
-                onChange={this.handleChange}
-                id="category"
-              />
-              <span>{this.state.errors.category}</span>
+            <div className="field add-item-field">
+              <label>Категорія</label>
+              <select onChange={this.handleChangeCategory} value={JSON.stringify(this.state.category)}>
+                {categories.map(item => (
+                  <option key={item._id} value={JSON.stringify(item)}>{item.name}</option>
+                ))}
+              </select>
             </div>
 
             <div className="field">
@@ -187,4 +206,14 @@ class CargoForm extends React.Component {
   }
 }
 
-export default CargoForm;
+const mapStateToProps = state => ({
+  categories: state.categories,
+});
+
+const mapDispatchToProps = {
+  fetchCategories,
+};
+
+const cargoFormWrapper = connect(mapStateToProps, mapDispatchToProps);
+
+export default cargoFormWrapper(CargoForm);

@@ -27,6 +27,7 @@ class SellCargosPage extends React.Component {
         </div>
         <div className="ui segment">
           <h1 className="ui header">Список товарів</h1>
+          <Link to="/" className="ui basic button green">Створити звіт</Link>
           <SellCargosList cargos={this.props.cargos} sellCargo={this.props.sellCargo} />
         </div>
       </div>

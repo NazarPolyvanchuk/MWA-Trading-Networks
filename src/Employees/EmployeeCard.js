@@ -8,7 +8,7 @@ export default function EmployeeCard({ employee, deleteEmployee }) {
       <td data-label="Name">{employee.name}</td>
       <td data-label="Surname">{employee.surname}</td>      
       <td data-label="Email">{employee.email}</td>
-      <td data-label="Category">{employee.category}</td>
+      <td data-label="Category">{employee.category.name}</td>
       <td data-label="Sallary">{employee.sallary}</td>
       <td data-label="Actions">
         <div className="ui two buttons">

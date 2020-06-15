@@ -46,13 +46,6 @@ export function addCargo(cargo) {
   }
 }
 
-export function addCargoCategory(category) {
-  return {
-    type: ADD_CARGO_CATEGORY,
-    category
-  }
-}
-
 export function cargoFetched(cargo) {
   return {
     type: CARGO_FETCHED,
@@ -74,13 +67,6 @@ export function cargoDeleted(cargoId) {
   }
 }
 
-export function cargoCategoryDeleted(categoryId) {
-  return {
-    type: CARGO_CATEGORY_DELETED,
-    categoryId
-  }
-}
-
 export function saveCargo(data) {
   return dispatch => {
     return fetch('/api/cargos', {
@@ -92,20 +78,6 @@ export function saveCargo(data) {
     })
     .then(handleResponse)
     .then(data => dispatch(addCargo(data.cargo)));
-  }
-}
-
-export function saveCargoCategory(data) {
-  return dispatch => {
-    return fetch('/api/cargos', {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(handleResponse)
-    .then(data => dispatch(addCargoCategory(data.cargoCategory)));
   }
 }
 

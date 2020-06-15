@@ -36,11 +36,39 @@
   margin-top: 10px;
 }
 
-
-
 .ui .placeholder {
   min-height: 40rem;
 }
+
+/* Dashboard */
+.sold-cargo  {
+  background: lightblue;
+}
+/* .ui .cards .card .content:first-child {
+  background: lightslategray;
+}
+.ui .cards .card .content:nth-child(3) {
+  background: lightcoral;
+}
+.ui .cards .card .content {
+  background: lightgreen;
+} */
+.data-count {
+  text-align: center;
+  align-items: center;
+  font-size: 28px;
+  padding-top: 25px;
+}
+/* Cargo page */
+.category-block {
+  margin: 20px 0px;
+}
+
+.category-label {
+  font-size: 18px;
+  margin-right: 5px;
+}
+  
 
 /* table */
 .table-container {
@@ -50,9 +78,8 @@
 
 /* main page */
 .ui .center .aligned .header {
-  width: 100%;
-  background-image: url(./img/background-image-employees.jpeg);
   height: 300px;
+  font-size: 25px;
 }
 .ui .items {
   width: 60%;
