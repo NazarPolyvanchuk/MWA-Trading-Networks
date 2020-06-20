@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { saveCargo, fetchCargo, updateCargo } from '../actions/cargo/actions';
+import { saveCargo, fetchCargo, updateCargo } from '../redux/actions/cargo/actions';
 import CargoForm from './CargoForm';
 
 class CargoFormPage extends React.Component {

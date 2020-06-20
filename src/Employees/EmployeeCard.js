@@ -9,7 +9,7 @@ export default function EmployeeCard({ employee, deleteEmployee }) {
       <td data-label="Surname">{employee.surname}</td>      
       <td data-label="Email">{employee.email}</td>
       <td data-label="Category">{employee.category.name}</td>
-      <td data-label="Sallary">{employee.sallary}</td>
+      <td data-label="Sallary">{`${employee.sallary} ГРН`}</td>
       <td data-label="Actions">
         <div className="ui two buttons">
           <Link to={`/employee/${employee._id}`} className="ui basic button green">Редагувати</Link>

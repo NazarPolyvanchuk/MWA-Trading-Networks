@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { saveEmployee, fetchEmployee, updateEmployee } from '../actions/employee/actions';
+import { saveEmployee, fetchEmployee, updateEmployee } from '../redux/actions/employee/actions';
 import EmployeeForm from './EmployeeForm';
 
 class EmployeeFormPage extends React.Component {

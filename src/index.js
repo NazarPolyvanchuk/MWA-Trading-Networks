@@ -7,6 +7,10 @@ import rootReducer from './rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 import './index.css';
 
 const store = createStore(

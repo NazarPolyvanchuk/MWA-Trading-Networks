@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import AreaChart from '../views/Area Chart';
-import ColumnChart from '../views/Column Chart';
-import PieChart from '../views/Pie Chart';
+import AreaChart from './views/Area Chart';
+import ColumnChart from './views/Column Chart';
+import PieChart from './views/Pie Chart';
 
 class Dashboard extends React.Component {
   render() {
@@ -23,6 +23,10 @@ class Dashboard extends React.Component {
               <i className="smile icon"></i>
               Працівники
             </NavLink>
+            <NavLink className="item" activeClassName="active" exact to="/reports">
+              <i className="file alternate icon"></i>
+              Звіти
+            </NavLink>
             <div className="right menu">
               <NavLink className="ui item" activeClassName="active" exact to="/">
                 <i className="calendar icon"></i>
@@ -38,41 +42,47 @@ class Dashboard extends React.Component {
                   <div className="content">
                     <div className="header">Продано товарів</div>
                     <div className="meta">
-                      <span>протягом місяця</span>
+                      <span>за останній місяць</span>
                     </div>
-                    <p className="data-count">68 шт.</p>
+                    <p className="data-count sold">68 шт.</p>
                   </div>
                 </div>
                 <div className="ui card">
                   <div className="content">
                     <div className="header">Закуплено товарів</div>
                     <div className="meta">
-                      <span>протягом місяця</span>
+                      <span>за останній місяць</span>
                     </div>
-                    <p className="data-count">35 шт.</p>
+                    <p className="data-count bought">35 шт.</p>
                   </div>
                 </div>
                 <div className="ui card">
                   <div className="content">
                     <div className="header">Витрачено коштів</div>
                     <div className="meta">
-                      <span>протягом місяця</span>
+                      <span>за останній місяць</span>
                     </div>
-                    <p className="data-count">56000 ГРН</p>
+                    <p className="data-count wasted">56000 ГРН</p>
                   </div>
                 </div>
                 <div className="ui card">
                   <div className="content">
-                    <div className="header">Виручка</div>
+                    <div className="header">Прибуток</div>
                     <div className="meta">
-                      <span>протягом місяця</span>
+                      <span>за останній місяць</span>
                     </div>
-                    <p className="data-count">89000 ГРН</p>
+                    <p className="data-count profit">89000 ГРН</p>
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="ui segment">
               <AreaChart />
+            </div>
+            <div className="ui segment">
               <ColumnChart />
+            </div>
+            <div className="ui segment">
               <PieChart />
             </div>
           </div>

@@ -14,9 +14,9 @@ function handleResponse(response) {
   }
 }
 
-export function fetchEmployees() {
+export function fetchEmployees(category = '') {
   return dispatch => {
-    fetch('/api/employees')
+    fetch(`/api/employees?category=${category}`)
       .then(res => res.json())
       .then(data => dispatch(setEmployees(data.employees)));
   }

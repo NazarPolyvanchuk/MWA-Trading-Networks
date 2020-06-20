@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CanvasJSReact from '../assets/canvasjs.react';
+import CanvasJSReact from '../../assets/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  
 class PieChart extends Component {
@@ -8,7 +8,7 @@ class PieChart extends Component {
 			exportEnabled: true,
 			animationEnabled: true,
 			title: {
-				text: "Website Traffic Sources"
+				text: "Діаграма успішності працівників"
 			},
 			data: [{
 				type: "pie",
@@ -30,7 +30,6 @@ class PieChart extends Component {
 		
 		return (
 		<div>
-			<h1>React Pie Chart</h1>
 			<CanvasJSChart options = {options} 
 				/* onRef={ref => this.chart = ref} */
 			/>

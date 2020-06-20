@@ -56,8 +56,20 @@
 .data-count {
   text-align: center;
   align-items: center;
-  font-size: 28px;
+  font-size: 30px;
   padding-top: 25px;
+}
+.sold {
+  color: rgb(81, 81, 150);
+}
+.bought {
+  color: rgb(177, 177, 0);
+}
+.wasted {
+  color: rgb(250, 96, 35);
+}
+.profit {
+  color: rgb(0, 189, 0);
 }
 /* Cargo page */
 .category-block {
@@ -77,9 +89,13 @@
 
 
 /* main page */
-.ui .center .aligned .header {
-  height: 300px;
+.main-page-header {
+  text-align: center;
+  height: 75px;
   font-size: 25px;
+  padding: 30px 0;
+  line-height: 27px;
+  border-radius: 50px;
 }
 .ui .items {
   width: 60%;

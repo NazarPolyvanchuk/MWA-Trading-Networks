@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 
-import { fetchCategories } from '../actions/category/actions';
+import { fetchCategories } from '../redux/actions/category/actions';
 
 class EmployeeForm extends React.Component {
   state = {
@@ -23,7 +23,6 @@ class EmployeeForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
     const { employee } = nextProps;
     if (employee) {
       this.setState({
@@ -94,9 +93,19 @@ class EmployeeForm extends React.Component {
             <i className="smile icon"></i>
             Працівники
           </NavLink>
-          <div className="item" activeClassName="active">
-            Додавання працівника
-          </div>
+          <NavLink className="item" activeClassName="active" exact to="/reports">
+            <i className="file alternate icon"></i>
+            Звіти
+          </NavLink>
+          {this.props.employee ? (
+            <div className="item" activeClassName="active">
+              Редагування працівника
+            </div>
+          ) : (
+            <div className="item" activeClassName="active">
+              Додавання працівника
+            </div>
+          )}
           <div className="right menu">
             <NavLink className="ui item" activeClassName="active" exact to="/">
               <i className="calendar icon"></i>

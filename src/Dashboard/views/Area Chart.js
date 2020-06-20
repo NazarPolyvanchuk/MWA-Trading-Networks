@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CanvasJSReact from '../assets/canvasjs.react';
+import CanvasJSReact from '../../assets/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  
 class AreaChart extends Component {
@@ -9,10 +9,10 @@ class AreaChart extends Component {
 			animationEnabled: true,
 			exportEnabled: true,
 			title: {
-				text: "Number of iPhones Sold"
+				text: "Графік прибутку"
 			},
 			axisY: {
-				title: "Number of iPhones ( in Million )",
+				title: "Сума прибутку ( тис. грн. )",
 				includeZero: false,
 			},
 			data: [
@@ -35,7 +35,6 @@ class AreaChart extends Component {
 		
 		return (
 		<div>
-			<h1>React Area Chart</h1>
 			<CanvasJSChart options = {options} 
 				/* onRef={ref => this.chart = ref} */
 			/>

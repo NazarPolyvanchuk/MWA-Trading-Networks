@@ -4,14 +4,15 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import classnames from 'classnames';
 
-import { saveCategory } from '../../actions/category/actions';
+import { saveCategory } from '../../redux/actions/category/actions';
 
 class CargoCategoryForm extends React.Component {
   state = {
     _id: this.props.category ? this.props.category._id : null,
     name: this.props.category ? this.props.category.name : '',
     errors: {},
-    loading: false
+    loading: false,
+    redirect: false,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,62 +45,71 @@ class CargoCategoryForm extends React.Component {
     if (isValid) {
       const { _id, name } = this.state;
       this.setState({ loading: true });
-      this.props.saveCategory({ _id, name });
-      <Redirect to="/cargos" />
+      this.props.saveCategory({ _id, name }).then(() => { this.setState({ redirect: true, loading: false })});
         // .catch((err) => err.response.json().then(({ errors }) => this.setState({ errors, loading: false }), <Redirect to="/cargos" /> ));
     }
   }
 
   render() {
     return (
-      <div className="ui container">
-        <div className="ui secondary pointing menu">
-          <NavLink className="item" activeClassName="active" exact to="/dashboard">
-            <i className="home icon"></i>
-            Моніторинг та аналіз
-          </NavLink>
-          <NavLink className="item" activeClassName="active" exact to="/cargos">
-            <i className="block layout icon"></i>
-            Товари
-          </NavLink>
-          <NavLink className="item" activeClassName="active" exact to="/employees">
-            <i className="smile icon"></i>
-            Працівники
-          </NavLink>
-          <div className="right menu">
-            <NavLink className="ui item" activeClassName="active" exact to="/">
-              <i className="calendar icon"></i>
-              Вийти
+      <div>
+        { this.state.redirect ? (
+          <Redirect to="/cargos" />
+        ) : (
+        <div className="ui container">
+          <div className="ui secondary pointing menu">
+            <NavLink className="item" activeClassName="active" exact to="/dashboard">
+              <i className="home icon"></i>
+              Моніторинг та аналіз
             </NavLink>
+            <NavLink className="item" activeClassName="active" exact to="/cargos">
+              <i className="block layout icon"></i>
+              Товари
+            </NavLink>
+            <NavLink className="item" activeClassName="active" exact to="/employees">
+              <i className="smile icon"></i>
+              Працівники
+            </NavLink>
+            <NavLink className="item" activeClassName="active" exact to="/reports">
+              <i className="file alternate icon"></i>
+              Звіти
+            </NavLink>
+            <div className="right menu">
+              <NavLink className="ui item" activeClassName="active" exact to="/">
+                <i className="calendar icon"></i>
+                Вийти
+              </NavLink>
+            </div>
+          </div>
+          <div className="ui segment">
+            <form className={classnames("ui form", { loading: this.state.loading })} onSubmit={this.handleSubmit}>
+
+              <div>
+                <h1>Додати нову категорію товару</h1>
+              </div>
+
+              {!!this.state.errors.global &&
+                <div className="ui negative message"><p>{this.state.errors.global}</p></div>
+              }
+
+              <div className={classnames('field add-item-field', { error: !!this.state.errors.name })}>
+                <label htmlFor="name">Назва категорії</label>
+                <input
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                  id="name"
+                />
+                <span>{this.state.errors.name}</span>
+              </div>
+
+              <div className="field">
+                <button className="ui primary button">Зберегти</button>
+              </div>
+            </form>
           </div>
         </div>
-        <div className="ui segment">
-          <form className={classnames("ui form", { loading: this.state.loading })} onSubmit={this.handleSubmit}>
-
-            <div>
-              <h1>Додати нову категорію товару</h1>
-            </div>
-
-            {!!this.state.errors.global &&
-              <div className="ui negative message"><p>{this.state.errors.global}</p></div>
-            }
-
-            <div className={classnames('field add-item-field', { error: !!this.state.errors.name })}>
-              <label htmlFor="name">Назва категорії</label>
-              <input
-                name="name"
-                value={this.state.name}
-                onChange={this.handleChange}
-                id="name"
-              />
-              <span>{this.state.errors.name}</span>
-            </div>
-
-            <div className="field">
-              <button className="ui primary button">Зберегти</button>
-            </div>
-          </form>
-        </div>
+        )}
       </div>
     );
   }

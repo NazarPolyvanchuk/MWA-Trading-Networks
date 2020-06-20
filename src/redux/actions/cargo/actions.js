@@ -1,7 +1,5 @@
 export const SET_CARGOS = 'SET_CARGOS';
 export const ADD_CARGO = 'ADD_CARGO';
-export const ADD_CARGO_CATEGORY = "ADD_CARGO_CATEGORY";
-export const CARGO_CATEGORY_DELETED = "CARGO_CATEGORY_DELETED";
 export const CARGO_FETCHED = 'CARGO_FETCHED';
 export const CARGO_UPDATED = 'CARGO_UPDATED';
 export const CARGO_DELETED = 'CARGO_DELETED';
@@ -16,9 +14,9 @@ function handleResponse(response) {
   }
 }
 
-export function fetchCargos() {
+export function fetchCargos(category = '') {
   return dispatch => {
-    fetch('/api/cargos')
+    fetch(`/api/cargos/?category=${category}`)
       .then(res => res.json())
       .then(data => dispatch(setCargos(data.cargos)));
   }

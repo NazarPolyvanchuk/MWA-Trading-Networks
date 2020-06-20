@@ -7,7 +7,8 @@ class MainPage extends React.Component {
   render() {
     return (
       <div className="ui container">
-        <div className="ui center aligned header">СИСТЕМА МОНІТОРИНГУ ТА АНАЛІЗУ РОБОТИ ТОРГОВОЇ МЕРЕЖІ</div>
+        <div className="main-page-header">СИСТЕМА МОНІТОРИНГУ ТА АНАЛІЗУ РОБОТИ ТОРГОВОЇ МЕРЕЖІ</div>
+        <div className="ui segment">
         <div className="ui center items">
           <div className="item">
             <div className="image">
@@ -22,6 +23,8 @@ class MainPage extends React.Component {
                 <ul className="ui list">
                   <li>Додавати товар</li>
                   <li>Додавати працівників</li>
+                  <li>Додавати категорії товару</li>
+                  <li>Додавати підрозділи працівників</li>
                   <li>Доступ до моніторингу та аналізу роботи торгової мережі</li>
                 </ul>
               </div>
@@ -41,7 +44,8 @@ class MainPage extends React.Component {
               </div>
               <div className="description">
                 <ul className="ui list">
-                  <li>Продавати товар</li>
+                  <li>Переглядати товар</li>
+                  <li>Формувати звіт проданого товару</li>
                 </ul>
               </div>
               <div className="extra">
@@ -49,6 +53,7 @@ class MainPage extends React.Component {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     );

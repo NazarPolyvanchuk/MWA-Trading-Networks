@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 
-import { fetchCategories } from '../actions/category/actions';
+import { fetchCategories } from '../redux/actions/category/actions';
 
 class CargoForm extends React.Component {
 
@@ -98,9 +98,19 @@ class CargoForm extends React.Component {
             <i className="smile icon"></i>
             Працівники
           </NavLink>
-          <NavLink className="item" activeClassName="active" exact to="/cargo/new">
-            Додавання нового товару
+          <NavLink className="item" activeClassName="active" exact to="/reports">
+            <i className="file alternate icon"></i>
+            Звіти
           </NavLink>
+          {this.props.employee ? (
+            <div className="item" activeClassName="active">
+              Редагування товару
+            </div>
+          ) : (
+            <div className="item" activeClassName="active">
+              Додавання товару
+            </div>
+          )}
           <div className="right menu">
             <NavLink className="ui item" activeClassName="active" exact to="/">
               <i className="calendar icon"></i>

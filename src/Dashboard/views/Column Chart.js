@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import CanvasJSReact from '../assets/canvasjs.react';
+import CanvasJSReact from '../../assets/canvasjs.react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  
 class ColumnChart extends Component {
 		render() {
 		const options = {
 			title: {
-				text: "Basic Column Chart"
+				text: "Графік товарів які найбільше продаються"
 			},
 			animationEnabled: true,
 			data: [
@@ -26,7 +26,6 @@ class ColumnChart extends Component {
 		
 		return (
 		<div>
-			<h1>React Column Chart</h1>
 			<CanvasJSChart options = {options} 
 				/* onRef={ref => this.chart = ref} */
 			/>
