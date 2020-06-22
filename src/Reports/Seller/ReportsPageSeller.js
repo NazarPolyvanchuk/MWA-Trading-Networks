@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SellerReportsList from './SellerReportsList';
@@ -8,7 +7,6 @@ import { fetchEmployees } from '../../redux/actions/employee/actions';
 class ReportsPageSeller extends React.Component {
 
   render() {
-      const { employees } = this.props;
     return (
       <div className="ui container">
           <div className="ui secondary pointing menu">

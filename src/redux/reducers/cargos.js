@@ -1,4 +1,4 @@
-import { SET_CARGOS, CARGO_FETCHED, CARGO_UPDATED, CARGO_DELETED, ADD_CARGO, ADD_CARGO_CATEGORY } from '../actions/cargo/actions';
+import { SET_CARGOS, CARGO_FETCHED, CARGO_UPDATED, CARGO_DELETED, ADD_CARGO } from '../actions/cargo/actions';
 
 export default function cargos(state = [], action = {}) {
   switch(action.type) {
@@ -28,17 +28,12 @@ export default function cargos(state = [], action = {}) {
 
     case CARGO_DELETED:
       return state.filter(item => item._id !== action.cargoId);
-    
-    case CARGO_DELETED:
-      return state.filter(item => item._id !== action.categoryId);
 
     case ADD_CARGO:
       return [
         ...state,
         action.cargo
       ];
-
- 
 
     default: return state;
   }

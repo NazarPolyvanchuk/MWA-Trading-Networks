@@ -11,10 +11,10 @@ class ReportItem extends React.Component {
                 <td data-label="Date">{format(new Date(report.created_at), 'dd.MM.yyyy hh:mm:ss')}</td>
                 <td data-label="Name and Surname">{report.employee.name}{' '}{report.employee.surname}</td>      
                 <td data-label="Category">{report.department.name}</td>
-                <td data-label="Sold cargo">{report.products && report.products.length}</td>
+                <td data-label="Sold cargo">{report.products.reduce((sum, item) => sum + Number(item.qty), 0)}</td>
                 <td data-label="Actions">
                     <div className="ui two buttons">
-                        <Link to="/report/:_id" className="ui basic button green">Деталі</Link>
+                        <Link to={`/report/${report._id}`} className="ui basic button green">Деталі</Link>
                         <div className="ui basic button red" onClick={() => deleteReport(report._id)}>Видалити</div>
                     </div>
                 </td>

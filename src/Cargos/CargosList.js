@@ -28,7 +28,6 @@ class CargosList extends React.Component {
 
 CargosList.propTypes = {
   cargos: PropTypes.array.isRequired,
-  categories: PropTypes.array.isRequired,
   deleteCargo: PropTypes.func.isRequired,
 };
 

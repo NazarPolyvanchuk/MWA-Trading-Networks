@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import ReactSelectBox from "react-select-box";
 import { MultiSelect } from "primereact/multiselect";
 
 import { fetchCategories } from "../../redux/actions/category/actions";

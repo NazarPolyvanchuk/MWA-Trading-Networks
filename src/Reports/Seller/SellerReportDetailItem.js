@@ -1,11 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchReport } from '../../redux/actions/report/actions';
-
-import SellerReportItem from './SellerReportItem';
 
 class SellerReportDetailItem extends React.Component {
 
@@ -15,13 +12,7 @@ class SellerReportDetailItem extends React.Component {
     fetchReport(reportId);
   }
 
-  render() {
-    const emptyMessage = (
-      <p>На даний момент товару немає!</p>
-    );
-
-    const cargos = [];
-  
+  render() { 
     return (
       <div className="ui container">
         <div className="ui secondary pointing menu">

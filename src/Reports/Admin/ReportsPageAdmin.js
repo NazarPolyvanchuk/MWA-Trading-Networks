@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { NavLink, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 import ReportsList from './ReportsList';
 
 class ReportsPageAdmin extends React.Component {

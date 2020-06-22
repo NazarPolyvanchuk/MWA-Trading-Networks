@@ -64,7 +64,7 @@ class CargosPage extends React.Component {
               ))}
             </select>
           </div>
-          <CargosList 
+          <CargosList
             cargos={this.props.cargos}
             deleteCargo={this.props.deleteCargo} 
             updateCargo={this.props.updateCargo} 

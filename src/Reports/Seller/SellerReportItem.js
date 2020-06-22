@@ -11,7 +11,7 @@ class SellerReportItem extends React.Component {
                 <td data-label="Date">{format(new Date(report.created_at), 'dd.MM.yyyy hh:mm:ss')}</td>
                 <td data-label="Name and Surname">{report.employee.name}{' '}{report.employee.surname}</td>      
                 <td data-label="Category">{report.department.name}</td>
-                <td data-label="Sold cargo">{report.selectedCargos.reduce((sum, item) => sum + Number(item.qty), 0)}</td>
+                <td data-label="Sold cargo">{report.products.reduce((sum, item) => sum + Number(item.qty), 0)}</td>
                 <td data-label="Actions">
                     <div className="ui two buttons">
                         <Link to={`/seller-report/${report._id}`} className="ui basic button green">Деталі</Link>

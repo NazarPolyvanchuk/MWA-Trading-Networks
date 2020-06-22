@@ -46,8 +46,6 @@ class SellerReportsList extends React.Component {
         </div>
       </div>
     );
-
-    console.log('reports: ', reports);
   
     return (
       <div>

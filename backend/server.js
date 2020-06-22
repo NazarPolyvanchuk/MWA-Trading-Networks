@@ -218,7 +218,7 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
       db.collection('employees').findOneAndUpdate({ 
         _id: new mongodb.ObjectId(req.params._id), 
       }, {  
-        $set: { name, surname, email, category, sallary: Number() } 
+        $set: { name, surname, email, category, sallary: Number(sallary) } 
       }, { 
         returnOriginal: false, 
       }, (err, result) => {
@@ -312,8 +312,13 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
       });
     });
 
+    const products = selectedCargos.map(item => {
+      item.qty = Number(item.qty);
+      return item;
+    });
+
     db.collection('reports').insert(
-      { employee, selectedCargos, department, created_at: new Date() },
+      { employee, products, department, created_at: new Date() },
       (err, result) => {
         if (err) {
           res.status(500).json({ errors: { global }});
@@ -342,107 +347,177 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
 
   /* DASHBOARD */
 
-  app.get('/api/analytics', (req, res) => {
-    db.collection('cargos').aggregate([{
-      $match: {
-        created_at: {
-          $gte: subMonths(new Date(), 1),
-        },
-      },
-    }, {
-      $group: {
-        _id: '',
-        "price": {
-          $sum: '$price',
-        },
-      }
-    }, {
-      $project: {
-        _id: 0,
-        "TotalPrice": "$price"
-      },
-    }], (err, result) => {
-      console.log('RESULT: ', result);
+  app.get('/api/analytics', async (req, res) => {
+
+    const outcome = await getOutcome();
+    const totalBought = await getTotalBought();
+    const totalSold = await getTotalSold();
+    const income = await getIncome();
+
+    res.json({
+      outcome: outcome[0].data,
+      totalBought: totalBought[0].data,
+      totalSold,
+      income,
     });
-    res.json({ data: 'success' });
   });
 
-  app.get('/api/analytics', (req, res) => {
-    db.collection('cargos').aggregate([{
+  // графік прибутку
+  app.get('/api/analytics/income', async (req, res) => {
+    const data = await db.collection('reports').aggregate([{
+      $addFields: {
+        products: {
+          $map: {
+            input: '$products',
+            as: 'el',
+            in: {
+              $multiply: ['$$el.qty', '$$el.price'],
+            },
+          },
+        },
+      },
+    }, {
+      $group: {
+        _id: {
+          month: {
+            $month: '$created_at',
+          }
+        },
+        created_at: {
+          $first: '$created_at',
+        },
+        products: {
+          $first: '$products',
+        },
+      },
+    }, {
+      $project: {
+        _id: 0,
+        created_at: '$created_at',
+        "value": {
+          $sum: '$products',
+        },
+      },
+    }]).sort({ created_at: 1 }).toArray();
+
+    res.json({ data });
+  });
+
+  app.get('/api/analytics/products', async (req, res) => {
+    res.json({ data: [] });
+  });
+
+  app.get('/api/analytics/employees', async (req, res) => {
+    res.json({ data: [] });
+  });
+
+  // продано товарів
+  async function getTotalSold() {
+    const data = await db.collection('reports').aggregate([{
       $match: {
         created_at: {
           $gte: subMonths(new Date(), 1),
         },
       },
     }, {
-      $group: {
-        _id: '',
-        "price": {
-          $sum: '$price',
+      $addFields: {
+        products: {
+          $map: {
+            input: '$products',
+            as: 'el',
+            in: '$$el.qty'
+          },
         },
-      }
+      },
     }, {
       $project: {
         _id: 0,
-        "TotalPrice": "$price"
+        "total": {
+          $sum: '$products',
+        },
       },
-    }], (err, result) => {
-      console.log('RESULT: ', result);
-    });
-    res.json({ data: 'success' });
-  });
+    }]).toArray();
+
+    return data.reduce((sum, item) => sum + item.total, 0);
+  }
+
+  // прибуток
+  async function getIncome() {
+    const data = await db.collection('reports').aggregate([{
+      $match: {
+        created_at: {
+          $gte: subMonths(new Date(), 1),
+        },
+      },
+    }, {
+      $addFields: {
+        products: {
+          $map: {
+            input: '$products',
+            as: 'el',
+            in: {
+              $multiply: ['$$el.qty', '$$el.price'],
+            }
+          },
+        },
+      },
+    }, {
+      $project: {
+        _id: 0,
+        "total": {
+          $sum: '$products',
+        },
+      },
+    }]).toArray();
+
+    return data.reduce((sum, item) => sum + item.total, 0);
+  }
 
   // Витрачено коштів на закупку товару за останній місяць
-  // app.get('/api/analytics', (req, res) => {
-  //   db.collection('cargos').aggregate([{
-  //     $match: {
-  //       created_at: {
-  //         $gte: subMonths(new Date(), 1),
-  //       },
-  //     },
-  //   }, {
-  //     $group: {
-  //       _id: '',
-  //       "price": {
-  //         $sum: '$price',
-  //       },
-  //     }
-  //   }, {
-  //     $project: {
-  //       _id: 0,
-  //       "TotalPrice": "$price"
-  //     },
-  //   }], (err, result) => {
-  //     console.log('RESULT: ', result);
-  //   });
-  //   res.json({ data: 'success' });
-  // });
+  async function getOutcome() {
+    return db.collection('cargos').aggregate([{
+      $match: {
+        created_at: {
+          $gte: subMonths(new Date(), 1),
+        },
+      },
+    }, {
+      $group: {
+        _id: '',
+        "price": {
+          $sum: '$price',
+        },
+      }
+    }, {
+      $project: {
+        _id: 0,
+        "data": "$price"
+      },
+    }]).toArray();
+  }
 
   // Закуплено товарів за останній місяць
-  // app.get('/api/analytics', (req, res) => {
-  //   db.collection('cargos').aggregate([{
-  //     $match: {
-  //       created_at: {
-  //         $gte: subMonths(new Date(), 1),
-  //       },
-  //     },
-  //   }, {
-  //     $group: {
-  //       _id: '',
-  //       "amount": {
-  //         $sum: '$amount',
-  //       },
-  //     }
-  //   }, {
-  //     $project: {
-  //       _id: 0,
-  //       "TotalAmount": "$amount"
-  //     },
-  //   }], (err, result) => {
-  //     console.log('RESULT: ', result);
-  //   });
-  //   res.json({ data: 'success' });
-  // });
+  async function getTotalBought() {
+    return db.collection('cargos').aggregate([{
+      $match: {
+        created_at: {
+          $gte: subMonths(new Date(), 1),
+        },
+      },
+    }, {
+      $group: {
+        _id: '',
+        "amount": {
+          $sum: '$amount',
+        },
+      }
+    }, {
+      $project: {
+        _id: 0,
+        "data": "$amount"
+      },
+    }]).toArray();
+  };
 
 // Error handler
   app.use((req, res) => {
