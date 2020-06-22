@@ -5,7 +5,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 class AreaChart extends Component {
 	render() {
 
-		const { data = [] } = this.props;
+		const { data } = this.props;
 
 		const options = {
 			theme: "light2",
@@ -22,7 +22,7 @@ class AreaChart extends Component {
 				{
 					type: "area",
 					xValueFormatString: "MM",
-					yValueFormatString: "#,##0.## Million",
+					yValueFormatString: "##0.## ГРН",
 					dataPoints: data,
 				}
 			]

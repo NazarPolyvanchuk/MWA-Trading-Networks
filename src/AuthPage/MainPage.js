@@ -12,7 +12,7 @@ class MainPage extends React.Component {
         <div className="ui center items">
           <div className="item">
             <div className="image">
-              <img className="custom" src="https://cdn.pixabay.com/photo/2014/04/03/09/58/man-309490_960_720.png" alt="" />
+              <img className="custom" src="https://image.flaticon.com/icons/png/512/786/786794.png" alt="" />
             </div>
             <div className="content">
               <a className="header">Адміністратор</a>
@@ -35,7 +35,7 @@ class MainPage extends React.Component {
           </div>
           <div className="item">
             <div className="image">
-              <img className="custom" src="https://cdn.pixabay.com/photo/2014/04/03/09/58/man-309490_960_720.png" alt="" />
+              <img className="custom" src="https://image.flaticon.com/icons/png/512/786/786753.png" alt="" />
             </div>
             <div className="content">
               <a className="header">Продавець</a>

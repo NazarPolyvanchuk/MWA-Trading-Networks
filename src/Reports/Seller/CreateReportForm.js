@@ -141,7 +141,7 @@ class CreateReportForm extends React.Component {
                 onChange={this.handleChangeEmployee}
                 value={JSON.stringify(this.state.employee)}
               >
-                <option value="">Select</option>
+                <option value="">Виберіть</option>
                 {employees.map((item) => (
                   <option key={item._id} value={JSON.stringify(item)}>
                     {item.name} {item.surname}
@@ -156,7 +156,7 @@ class CreateReportForm extends React.Component {
                 onChange={this.handleChangeDepartment}
                 value={JSON.stringify(this.state.category)}
               >
-                <option value="">Select</option>
+                <option value="">Виберіть</option>
                 {categories.map((item) => (
                   <option key={item._id} value={JSON.stringify(item)}>
                     {item.name}
@@ -180,7 +180,7 @@ class CreateReportForm extends React.Component {
                 onChange={(e) => this.setState({ selectedCargos: e.value })}
                 filter={true}
                 filterPlaceholder="Пошук"
-                placeholder="Виберіть продукти"
+                placeholder="Виберіть товари"
               />
             </div>
 

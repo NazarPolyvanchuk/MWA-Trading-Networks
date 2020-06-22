@@ -371,7 +371,7 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
             input: '$products',
             as: 'el',
             in: {
-              $multiply: ['$$el.qty', '$$el.price'],
+              $multiply: ['$$el.qty', '$$el.sellPrice'],
             },
           },
         },
@@ -456,7 +456,7 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
             input: '$products',
             as: 'el',
             in: {
-              $multiply: ['$$el.qty', '$$el.price'],
+              $multiply: ['$$el.qty', '$$el.sellPrice'],
             }
           },
         },

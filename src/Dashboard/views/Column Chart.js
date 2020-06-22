@@ -4,21 +4,23 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
  
 class ColumnChart extends Component {
 		render() {
+
+		const { data = [] } = this.props;
+
 		const options = {
 			title: {
 				text: "Графік товарів які найбільше продаються"
 			},
 			animationEnabled: true,
 			data: [
-			{
-				// Change type to "doughnut", "line", "splineArea", etc.
-				type: "column",
+				{
+					type: "column",
 				dataPoints: [
-					{ label: "Apple",  y: 10  },
-					{ label: "Orange", y: 15  },
-					{ label: "Banana", y: 25  },
-					{ label: "Mango",  y: 30  },
-					{ label: "Grape",  y: 28  }
+					{ label: "AppleApple MacBook Pro 2019 256G",  y: 1  },
+					{ label: "Apple iMac Pro 2019", y: 1  },
+					// { label: "Banana", y: 25  },
+					// { label: "Mango",  y: 30  },
+					// { label: "Grape",  y: 28  }
 				]
 			}
 			]
