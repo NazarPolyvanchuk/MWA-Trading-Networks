@@ -287,11 +287,11 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
   app.get('/api/reports/:_id', (req, res) => {
     db.collection('reports').findOne({
       _id: new mongodb.ObjectId(req.params._id),
-    }, (err, reports) => {
+    }, (err, data) => {
       if (err) {
         res.status(500).json({ errors: { global: err }});
       } else {
-        res.json({ reports });
+        res.json(data);
       }
     });
   });

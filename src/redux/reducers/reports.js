@@ -1,36 +1,37 @@
 import { SET_REPORTS, REPORT_FETCHED, REPORT_DELETED, ADD_REPORT } from '../actions/report/actions';
 
-export default function reports(state = [], action = {}) {
+const defaultState = {
+  items: [],
+  currentItem: null,
+};
+
+export default function reports(state = defaultState, action = {}) {
   switch(action.type) {
     case SET_REPORTS:
-      return action.reports || [];
+      return {
+        ...state,
+        items: action.payload || [],
+      }
 
     case REPORT_FETCHED:
-      const index = state.findIndex(item => item._id === action.report._id);
-
-      if (index > -1) {
-        return state.map(item => {
-          if (item._id === action.report._id) return action.report;
-          return item;
-        });
-      } else {
-        return [
-          ...state,
-          action.report
-        ];
-      }
+      return {
+        ...state,
+        currentItem: action.payload,
+      };
 
     case REPORT_DELETED:
       return state.filter(item => item._id !== action.reportId);
 
     case ADD_REPORT:
-      return [
+      return {
         ...state,
-        action.report
-      ];
+        items: [
+          ...state.items,
+          action.payload,
+        ],
+      };
 
- 
-
-    default: return state;
+    default:
+      return state;
   }
 }

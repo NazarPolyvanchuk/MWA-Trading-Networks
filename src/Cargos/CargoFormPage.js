@@ -12,7 +12,7 @@ class CargoFormPage extends React.Component {
   componentDidMount() {
     const { match } = this.props;
 
-    if (match.params._id) {
+    if (match.params._id && match.params._id !== 'new') {
       this.props.fetchCargo(match.params._id);
     }
   }

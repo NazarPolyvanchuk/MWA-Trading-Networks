@@ -25,28 +25,28 @@ export function fetchReport(id) {
   return dispatch => {
     fetch(`/api/reports/${id}`)
       .then(res => res.json())
-      .then(data => dispatch(reportFetched(data.report)));
+      .then(data => dispatch(reportFetched(data)));
   }
 }
 
-export function setReports(reports) {
+export function setReports(payload) {
   return {
     type: SET_REPORTS,
-    reports
+    payload,
   }
 }
 
-export function addReport(report) {
+export function addReport(payload) {
   return {
     type: ADD_REPORT,
-    report
+    payload,
   }
 }
 
-export function reportFetched(report) {
+export function reportFetched(payload) {
   return {
     type: REPORT_FETCHED,
-    report
+    payload,
   }
 }
 
