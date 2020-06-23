@@ -60,8 +60,8 @@ SellerReportsList.propTypes = {
   deleteReport: PropTypes.func.isRequired
 }
 
-const mapsStateToProps = (state) => ({
-  reports: state.reports,
+const mapsStateToProps = ({ reports: { items } }) => ({
+  reports: items,
 });
 
 const mapDispatchToProps = {

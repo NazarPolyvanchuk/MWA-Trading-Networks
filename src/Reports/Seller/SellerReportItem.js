@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 class SellerReportItem extends React.Component {
     render() {
         const { report, deleteReport } = this.props;
-        console.log(report);
         return (
             <tr>
                 <td data-label="Date">{format(new Date(report.created_at), 'dd.MM.yyyy hh:mm:ss')}</td>

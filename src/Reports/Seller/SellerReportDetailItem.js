@@ -1,20 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { format } from 'date-fns';
 
 import { fetchReport } from '../../redux/actions/report/actions';
 
 class SellerReportDetailItem extends React.Component {
 
-  constructor(props) {
-    super(props);
-    const { match: { params: { _id: reportId } } } = props;
+  componentDidMount() {
+    const { fetchReport, match: { params: { _id: reportId } } } = this.props;
     fetchReport(reportId);
   }
 
-  render() { 
+  render() {
+    const { report } = this.props; 
     return (
-      <div className="ui container">
+      report && (<div className="ui container">
         <div className="ui secondary pointing menu">
           <NavLink className="item" activeClassName="active" exact to="/sell-cargos">
             <i className="block layout icon"></i>
@@ -34,9 +35,9 @@ class SellerReportDetailItem extends React.Component {
         </div>
         <div className="ui segment">
           <h1 className="ui header">Детальна інформацію по звіту</h1>
-          <div className="info">Дата: </div>
-          <div className="info">Продавець: </div>
-          <div className="info">Підрозділ: </div>
+          <div className="info">Дата: {format(new Date(report.created_at), 'dd.MM.yyyy hh:mm')}</div>
+          <div className="info">Продавець: {`${report.employee.name} ${report.employee.surname}`}</div>
+          <div className="info">Підрозділ: {report.department.name}</div>
           <h3>Таблиця проданого товару</h3>
           <div className="table-container">
             <table className="ui celled table">
@@ -50,7 +51,7 @@ class SellerReportDetailItem extends React.Component {
                 </tr>
               </thead>
               <tbody>
-              {/* {cargos.map(cargo => (
+              {report.products.map(cargo => (
                 <tr>
                     <td data-label="Фото">
                         <div className="image">
@@ -60,24 +61,27 @@ class SellerReportDetailItem extends React.Component {
                     <td data-label="Назва товару">{cargo.title}</td>      
                     <td data-label="Ціна товару">{`${cargo.sellPrice} ГРН / шт`}</td>
                     <td data-label="Категорія товару">{cargo.category.name}</td>
-                    <td data-label="Продано шт.">{`${cargo.amount} шт`}</td>
+                    <td data-label="Продано шт.">{`${report.products.reduce((sum, item) => sum + Number(item.qty), 0)} шт`}</td>
                 </tr>
-              ))} */}
+              ))}
               </tbody>
             </table>
           </div>
         </div>
       </div>
+      )
     );
   }
 }
 
-const mapStateToProps = ({ reports }) => ({
-  reports,
-});
+const mapStateToProps = ({ reports: { currentItem } }) => {
+  return {
+    report: currentItem,
+  };
+};
 
-const mapDispatchToProps = dispatch => ({
-  getReport: id => dispatch(fetchReport(id)),
-});
+const mapDispatchToProps = {
+  fetchReport,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SellerReportDetailItem);

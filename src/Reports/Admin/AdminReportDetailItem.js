@@ -9,8 +9,8 @@ import { fetchReport } from '../../redux/actions/report/actions';
 class SoldCargosList extends React.Component {
 
   componentDidMount() {
-    const { fetchReport } = this.props;
-    fetchReport('5eef4c8a53f9008a5ce354f6');
+    const { fetchReport, match: { params: { _id: reportId } } } = this.props;
+    fetchReport(reportId);
   }
 
   render() {
@@ -45,7 +45,7 @@ class SoldCargosList extends React.Component {
         <div className="ui segment">
           <h1 className="ui header">Детальна інформацію по звіту</h1>
           <div className="info">Дата: {format(new Date(report.created_at), 'dd.MM.yyyy hh:mm')}</div>
-          <div className="info">Продавець: {report.employee}</div>
+          <div className="info">Продавець: {`${report.employee.name} ${report.employee.surname}`}</div>
           <div className="info">Підрозділ: {report.department.name}</div>
           <h3>Таблиця проданого товару</h3>
           <div className="table-container">
@@ -70,7 +70,7 @@ class SoldCargosList extends React.Component {
                     <td data-label="Назва товару">{cargo.title}</td>      
                     <td data-label="Ціна товару">{`${cargo.sellPrice} ГРН / шт`}</td>
                     <td data-label="Категорія товару">{cargo.category.name}</td>
-                    <td data-label="Продано шт.">{`${cargo.amount} шт`}</td>
+                    <td data-label="Продано шт.">{`${report.products.reduce((sum, item) => sum + Number(item.qty), 0)} шт`}</td>
                 </tr>
               ))}
               </tbody>

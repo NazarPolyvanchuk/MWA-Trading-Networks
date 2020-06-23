@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SellerReportsList from './SellerReportsList';
-import { fetchEmployees } from '../../redux/actions/employee/actions';
+import { fetchReports } from '../../redux/actions/report/actions';
 
 class ReportsPageSeller extends React.Component {
 
@@ -36,8 +36,8 @@ class ReportsPageSeller extends React.Component {
 
 function mapsStateToProps(state) {
   return {
-    employees: state.employees
+    reports: state.reports
   }
 }
 
-export default connect(mapsStateToProps, { fetchEmployees })(ReportsPageSeller);;
+export default connect(mapsStateToProps, { fetchReports })(ReportsPageSeller);;
