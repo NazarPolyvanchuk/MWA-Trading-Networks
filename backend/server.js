@@ -379,8 +379,8 @@ mongodb.MongoClient.connect(dbUrl, (err, db) => {
     }, {
       $group: {
         _id: {
-          month: {
-            $month: '$created_at',
+          dayOfYear: {
+            $dayOfYear: '$created_at',
           }
         },
         created_at: {

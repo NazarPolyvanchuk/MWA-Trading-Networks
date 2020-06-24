@@ -225,7 +225,7 @@ class CreateReportForm extends React.Component {
                           </div>
                         </td>
                         <td data-label="Назва товару">{cargo.title}</td>
-                        <td data-label="Ціна товару">{`${cargo.price} ГРН / шт`}</td>
+                        <td data-label="Ціна товару">{`${cargo.sellPrice} ГРН / шт`}</td>
                         <td data-label="Кількість товару">{`${cargo.amount} шт`}</td>
                         <td data-label="Категорія товару">{cargo.category.name}</td>
                         <td data-label="Продати шт.">

@@ -19,8 +19,8 @@ class PieChart extends Component {
 				indexLabelFontSize: 16,
 				indexLabel: "{label} - {y}%",
 				dataPoints: [
-					{ y: 67, label: "Компютери та ноутбуки" },
-					{ y: 33, label: "Мобільні телефони" },
+					{ y: 50, label: "Компютери та ноутбуки" },
+					{ y: 50, label: "Мобільні телефони" },
 				]
 			}]
 		}

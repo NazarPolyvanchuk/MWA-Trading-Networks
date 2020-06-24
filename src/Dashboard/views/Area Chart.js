@@ -21,7 +21,7 @@ class AreaChart extends Component {
 			data: [
 				{
 					type: "area",
-					xValueFormatString: "MM",
+					xValueFormatString: "DD",
 					yValueFormatString: "##0.## ГРН",
 					dataPoints: data,
 				}

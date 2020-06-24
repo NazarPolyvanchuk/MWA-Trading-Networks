@@ -16,8 +16,9 @@ class ColumnChart extends Component {
 				{
 					type: "column",
 				dataPoints: [
-					{ label: "AppleApple MacBook Pro 2019 256G",  y: 1  },
 					{ label: "Apple iMac Pro 2019", y: 1  },
+					{ label: "AppleApple MacBook Pro 2019 256G",  y: 1  },
+					{ label: "Apple iPhone XS MAX 256GB", y: 2  },
 					// { label: "Banana", y: 25  },
 					// { label: "Mango",  y: 30  },
 					// { label: "Grape",  y: 28  }
